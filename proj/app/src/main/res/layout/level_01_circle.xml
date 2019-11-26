@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/level_01_circle"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#00ffffff">
+
+    <ImageView
+        android:id="@+id/circle_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="matrix"
+        android:src="@drawable/level_01_circle" />
+
+</RelativeLayout>
