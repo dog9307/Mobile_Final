@@ -2,9 +2,7 @@ package com.example.mp_final;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -17,10 +15,10 @@ import android.widget.TextView;
 
 import java.util.Random;
 
-public class Level01Activity extends Activity {
+public class Level01Activity extends LevelBase {
 
     private static final int    MARGIN = 200;
-    private static final int    TOTAL_MAX = 30;
+    private static final int    TOTAL_MAX = 10;
     private static final int    GAMEOVER_COUNT = 3;
     private static final float  DELAY_MIN = 0.2f;
     private static final float  DELAY_DECREASE = 0.05f;
@@ -95,7 +93,7 @@ public class Level01Activity extends Activity {
     }
 
     private Handler _handle;
-    private Runnable _generator = new Runnable() {
+    private Thread _generator = new Thread() {
         @Override
         public void run() {
             try
@@ -107,11 +105,20 @@ public class Level01Activity extends Activity {
                     _handle.postDelayed(new Runnable() {
                         @Override
                         public void run() {
+                            try {
+                                _generator.join();
+                            }
+                            catch (Exception e)
+                            {
+                                e.printStackTrace();
+                                return;
+                            }
+
                             _handle.removeCallbacks(_gameStarter);
                             _handle.removeCallbacks(_generator);
 
-                            startActivity(new Intent(getApplication(), Level01Activity.class));
-                            finish();
+                            LevelFail();
+                            StartLevel(StartActivity.class);
                         }
                     }, 2000);
                 }
@@ -122,11 +129,19 @@ public class Level01Activity extends Activity {
                     _handle.postDelayed(new Runnable() {
                         @Override
                         public void run() {
+                            try {
+                                _generator.join();
+                            }
+                            catch (Exception e)
+                            {
+                                e.printStackTrace();
+                                return;
+                            }
+
                             _handle.removeCallbacks(_gameStarter);
                             _handle.removeCallbacks(_generator);
 
-                            startActivity(new Intent(getApplication(), Level02Activity.class));
-                            finish();
+                            StartLevel(Level02Activity.class);
                         }
                     }, 2000);
                 }
@@ -145,7 +160,7 @@ public class Level01Activity extends Activity {
         }
     };
 
-    private Runnable _gameStarter = new Runnable() {
+    private Thread _gameStarter = new Thread() {
         @Override
         public void run() {
             if (_levelStatus.getText().toString().equals("3"))
@@ -166,14 +181,14 @@ public class Level01Activity extends Activity {
             else
             {
                 _levelStatus.setVisibility(View.GONE);
-                _handle.postDelayed(_generator, (long) (_delayTime * 1000));
+                _handle.postDelayed(_generator, 1000);
             }
         }
     };
 
     private void StartRepeat()
     {
-        _handle.postDelayed(_gameStarter, 1000);
+        _handle.postDelayed(_generator, 1000);
     }
 
     private void GameReset()
@@ -191,7 +206,9 @@ public class Level01Activity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_level_01);
+        setContentView(R.layout.activity_level01);
+
+        _level = 1;
 
         _circleArea = findViewById(R.id.level_01_circle_area);
         _levelStatus = (TextView) findViewById(R.id.level_status);
@@ -207,6 +224,7 @@ public class Level01Activity extends Activity {
     protected void onDestroy()
     {
         super.onDestroy();
+
         _handle.removeCallbacks(_gameStarter);
         _handle.removeCallbacks(_generator);
     }

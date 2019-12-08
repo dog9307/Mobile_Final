@@ -9,8 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
-        <activity android:name=".Level02Activity" />
-        <activity android:name=".Level01Activity">
+        <activity android:name=".Level01Activity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".Level02Activity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".StartActivity"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
