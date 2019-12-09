@@ -21,9 +21,9 @@ public class LevelBase extends Activity {
     }
 
     @Override
-    protected void onDestroy()
+    protected void onStop()
     {
-        super.onDestroy();
+        super.onStop();
 
         LevelFail();
     }

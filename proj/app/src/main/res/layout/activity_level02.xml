@@ -24,6 +24,71 @@
             android:textColor="#ffffff"
             android:text="@string/level_02_title"/>
 
+        <TextView
+            android:id="@+id/level_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="3"
+            android:textColor="#000000"
+            android:textSize="32sp" />
+
+        <LinearLayout
+            android:id="@+id/checkbox_area"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true"
+            android:padding="30dp">
+
+            <CheckBox
+                android:id="@+id/checkbox_0"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:checked="false"
+                android:button="@null"
+                android:background="@drawable/custom_checkbox"
+                android:onClick="onClick"/>
+
+            <CheckBox
+                android:id="@+id/checkbox_1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:checked="false"
+                android:button="@null"
+                android:background="@drawable/custom_checkbox"
+                android:onClick="onClick"/>
+
+            <CheckBox
+                android:id="@+id/checkbox_2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:checked="false"
+                android:button="@null"
+                android:background="@drawable/custom_checkbox"
+                android:onClick="onClick"/>
+
+            <CheckBox
+                android:id="@+id/checkbox_3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:checked="false"
+                android:button="@null"
+                android:background="@drawable/custom_checkbox"
+                android:onClick="onClick"/>
+
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/level_02_note_area"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/level_title"/>
+
     </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

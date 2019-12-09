@@ -18,7 +18,7 @@ import java.util.Random;
 public class Level01Activity extends LevelBase {
 
     private static final int    MARGIN = 200;
-    private static final int    TOTAL_MAX = 10;
+    private static final int    TOTAL_MAX = 3;
     private static final int    GAMEOVER_COUNT = 3;
     private static final float  DELAY_MIN = 0.2f;
     private static final float  DELAY_DECREASE = 0.05f;
@@ -160,35 +160,11 @@ public class Level01Activity extends LevelBase {
         }
     };
 
-    private Thread _gameStarter = new Thread() {
-        @Override
-        public void run() {
-            if (_levelStatus.getText().toString().equals("3"))
-            {
-                _levelStatus.setText(2 + "");
-                _handle.postDelayed(_gameStarter, 1000);
-            }
-            else if (_levelStatus.getText().toString().equals("2"))
-            {
-                _levelStatus.setText(1 + "");
-                _handle.postDelayed(_gameStarter, 1000);
-            }
-            else if (_levelStatus.getText().toString().equals("1"))
-            {
-                _levelStatus.setText("Start!");
-                _handle.postDelayed(_gameStarter, 1000);
-            }
-            else
-            {
-                _levelStatus.setVisibility(View.GONE);
-                _handle.postDelayed(_generator, 1000);
-            }
-        }
-    };
-
+    private GameStarter _gameStarter;
     private void StartRepeat()
     {
-        _handle.postDelayed(_generator, 1000);
+        _gameStarter = new GameStarter(_generator, _levelStatus, _handle);
+        _handle.postDelayed(_gameStarter, 1000);
     }
 
     private void GameReset()
@@ -201,6 +177,8 @@ public class Level01Activity extends LevelBase {
 
         _isGameOver = false;
         _isGameClear = false;
+
+        _delayTime = 1.0f;
     }
 
     @Override
@@ -211,19 +189,17 @@ public class Level01Activity extends LevelBase {
         _level = 1;
 
         _circleArea = findViewById(R.id.level_01_circle_area);
-        _levelStatus = (TextView) findViewById(R.id.level_status);
 
-        GameReset();
-
-        _delayTime = 1.0f;
+        _levelStatus = findViewById(R.id.level_status);
         _handle = new Handler();
+        GameReset();
         StartRepeat();
     }
 
     @Override
-    protected void onDestroy()
+    protected void onStop()
     {
-        super.onDestroy();
+        super.onStop();
 
         _handle.removeCallbacks(_gameStarter);
         _handle.removeCallbacks(_generator);
