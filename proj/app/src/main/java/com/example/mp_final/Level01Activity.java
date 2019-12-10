@@ -4,7 +4,6 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
@@ -28,12 +27,12 @@ public class Level01Activity extends LevelBase {
 
     private float _delayTime;
 
-    class Level_01_circle extends RelativeLayout
+    class Level_01_Circle extends RelativeLayout
     {
         private ImageView _circle;
         private RelativeLayout _instance;
 
-        public Level_01_circle(Context context) {
+        public Level_01_Circle(Context context) {
             super(context);
 
             _instance = this;
@@ -119,18 +118,6 @@ public class Level01Activity extends LevelBase {
                         _handle.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                try {
-                                    _generator.join();
-                                }
-                                catch (Exception e)
-                                {
-                                    e.printStackTrace();
-                                    return;
-                                }
-
-                                _handle.removeCallbacks(_gameStarter);
-                                _handle.removeCallbacks(_generator);
-
                                 LevelFail();
                                 StartLevel(StartActivity.class);
                             }
@@ -143,18 +130,6 @@ public class Level01Activity extends LevelBase {
                         _handle.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                try {
-                                    _generator.join();
-                                }
-                                catch (Exception e)
-                                {
-                                    e.printStackTrace();
-                                    return;
-                                }
-
-                                _handle.removeCallbacks(_gameStarter);
-                                _handle.removeCallbacks(_generator);
-
                                 StartLevel(Level02Activity.class);
                             }
                         }, 2000);
@@ -179,7 +154,7 @@ public class Level01Activity extends LevelBase {
 
     public void GenerateCircle()
     {
-        Level_01_circle newCircle = new Level_01_circle(this);
+        Level_01_Circle newCircle = new Level_01_Circle(this);
 
         Random rnd = new Random();
         int x, y;

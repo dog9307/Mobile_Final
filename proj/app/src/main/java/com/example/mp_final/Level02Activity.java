@@ -5,11 +5,9 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -158,18 +156,6 @@ public class Level02Activity extends LevelBase {
                         _handle.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                try {
-                                    _generator.join();
-                                }
-                                catch (Exception e)
-                                {
-                                    e.printStackTrace();
-                                    return;
-                                }
-
-                                _handle.removeCallbacks(_gameStarter);
-                                _handle.removeCallbacks(_generator);
-
                                 LevelFail();
                                 StartLevel(StartActivity.class);
                             }
@@ -182,18 +168,6 @@ public class Level02Activity extends LevelBase {
                         _handle.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                try {
-                                    _generator.join();
-                                }
-                                catch (Exception e)
-                                {
-                                    e.printStackTrace();
-                                    return;
-                                }
-
-                                _handle.removeCallbacks(_gameStarter);
-                                _handle.removeCallbacks(_generator);
-
                                 StartLevel(Level03Activity.class);
                             }
                         }, 2000);
