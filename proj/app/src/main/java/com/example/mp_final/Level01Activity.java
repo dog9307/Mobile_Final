@@ -11,7 +11,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import java.util.Random;
 
@@ -25,11 +24,7 @@ public class Level01Activity extends LevelBase {
 
     private int _totalCircleCount;
     private int _currentCircleCount;
-    private boolean _isGameOver;
-    private boolean _isGameClear;
     private ConstraintLayout _circleArea;
-
-    private TextView _levelStatus;
 
     private float _delayTime;
 
@@ -92,91 +87,15 @@ public class Level01Activity extends LevelBase {
         }
     }
 
-    private Handler _handle;
-    private Thread _generator = new Thread() {
-        @Override
-        public void run() {
-            try
-            {
-                if (_isGameOver)
-                {
-                    _levelStatus.setVisibility(View.VISIBLE);
-                    _levelStatus.setText("Game Over");
-                    _handle.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                _generator.join();
-                            }
-                            catch (Exception e)
-                            {
-                                e.printStackTrace();
-                                return;
-                            }
-
-                            _handle.removeCallbacks(_gameStarter);
-                            _handle.removeCallbacks(_generator);
-
-                            LevelFail();
-                            StartLevel(StartActivity.class);
-                        }
-                    }, 2000);
-                }
-                else if (_isGameClear)
-                {
-                    _levelStatus.setVisibility(View.VISIBLE);
-                    _levelStatus.setText("Game Clear!");
-                    _handle.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                _generator.join();
-                            }
-                            catch (Exception e)
-                            {
-                                e.printStackTrace();
-                                return;
-                            }
-
-                            _handle.removeCallbacks(_gameStarter);
-                            _handle.removeCallbacks(_generator);
-
-                            StartLevel(Level02Activity.class);
-                        }
-                    }, 2000);
-                }
-                else
-                {
-                    if (_totalCircleCount < TOTAL_MAX)
-                        GenerateCircle();
-                }
-            }
-            finally {
-                _delayTime -= DELAY_DECREASE;
-                if (_delayTime < DELAY_MIN)
-                    _delayTime = DELAY_MIN;
-                    _handle.postDelayed(_generator, (long)(_delayTime * 1000));
-            }
-        }
-    };
-
-    private GameStarter _gameStarter;
-    private void StartRepeat()
+    @Override
+    protected void GameReset()
     {
-        _gameStarter = new GameStarter(_generator, _levelStatus, _handle);
-        _handle.postDelayed(_gameStarter, 1000);
-    }
+        super.GameReset();
 
-    private void GameReset()
-    {
-        _levelStatus.setText(3 + "");
         _circleArea.removeAllViews();
 
         _currentCircleCount = 0;
         _totalCircleCount = 0;
-
-        _isGameOver = false;
-        _isGameClear = false;
 
         _delayTime = 1.0f;
     }
@@ -186,24 +105,77 @@ public class Level01Activity extends LevelBase {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level01);
 
-        _level = 1;
-
         _circleArea = findViewById(R.id.level_01_circle_area);
 
-        _levelStatus = findViewById(R.id.level_status);
-        _handle = new Handler();
-        GameReset();
-        StartRepeat();
+        _generator = new Thread() {
+            @Override
+            public void run() {
+                try
+                {
+                    if (_isGameOver)
+                    {
+                        _levelStatus.setVisibility(View.VISIBLE);
+                        _levelStatus.setText("Game Over");
+                        _handle.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    _generator.join();
+                                }
+                                catch (Exception e)
+                                {
+                                    e.printStackTrace();
+                                    return;
+                                }
+
+                                _handle.removeCallbacks(_gameStarter);
+                                _handle.removeCallbacks(_generator);
+
+                                LevelFail();
+                                StartLevel(StartActivity.class);
+                            }
+                        }, 2000);
+                    }
+                    else if (_isGameClear)
+                    {
+                        _levelStatus.setVisibility(View.VISIBLE);
+                        _levelStatus.setText("Game Clear!");
+                        _handle.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    _generator.join();
+                                }
+                                catch (Exception e)
+                                {
+                                    e.printStackTrace();
+                                    return;
+                                }
+
+                                _handle.removeCallbacks(_gameStarter);
+                                _handle.removeCallbacks(_generator);
+
+                                StartLevel(Level02Activity.class);
+                            }
+                        }, 2000);
+                    }
+                    else
+                    {
+                        if (_totalCircleCount < TOTAL_MAX)
+                            GenerateCircle();
+                    }
+                }
+                finally {
+                    _delayTime -= DELAY_DECREASE;
+                    if (_delayTime < DELAY_MIN)
+                        _delayTime = DELAY_MIN;
+                    _handle.postDelayed(_generator, (long)(_delayTime * 1000));
+                }
+            }
+        };
+        GameInit(1);
     }
 
-    @Override
-    protected void onStop()
-    {
-        super.onStop();
-
-        _handle.removeCallbacks(_gameStarter);
-        _handle.removeCallbacks(_generator);
-    }
 
     public void GenerateCircle()
     {
