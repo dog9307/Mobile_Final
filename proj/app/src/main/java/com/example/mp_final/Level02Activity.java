@@ -234,7 +234,7 @@ public class Level02Activity extends LevelBase {
     {
         Random rnd = new Random();
         int index = rnd.nextInt(_checks.length);
-        int x = _checks[0].getLeft() + _checks[0].getWidth() / 2 + _checks[0].getWidth() * index;
+        int x = _checks[index].getLeft() + _checks[index].getWidth() / 2;
         Level_02_Note newNote = new Level_02_Note(this, x, -_noteHeight, index);
         _noteArea.addView(newNote);
         _notes.add(newNote);
