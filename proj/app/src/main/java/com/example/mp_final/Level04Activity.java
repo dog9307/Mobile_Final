@@ -7,10 +7,10 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
-
-import java.util.ArrayList;
 
 public class Level04Activity extends LevelBase {
 
@@ -22,6 +22,9 @@ public class Level04Activity extends LevelBase {
 
         private float _cx, _cy;
         private float _radius;
+
+        private Animation _smaller;
+        private boolean _isAnimStarted;
 
         public Level_04_Circle(Context con)
         {
@@ -45,12 +48,15 @@ public class Level04Activity extends LevelBase {
             _paint = new Paint();
             _paint.setAntiAlias(false);
             _paint.setStyle(Paint.Style.FILL_AND_STROKE);
-            _paint.setColor(Color.RED);
+            _paint.setColor(Color.DKGRAY);
 
             _cx = _circleArea.getWidth() / 2;
             _cy = _circleArea.getHeight() / 2;
 
             _radius = 100.0f;
+
+            _isAnimStarted = false;
+            _smaller = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.scale_smaller);
 
             this.setOnTouchListener(new View.OnTouchListener() {
                     @Override
@@ -70,12 +76,22 @@ public class Level04Activity extends LevelBase {
             );
         }
 
-        private void Update()
+        public void StartAnim()
         {
+            if (_isAnimStarted) return;
+
+            _isAnimStarted = true;
+            startAnimation(_smaller);
+        }
+
+        public void Bigger()
+        {
+            if (_isGameOver || _isGameClear) return;
+
             _radius++;
-            if (_radius >= _circleArea.getWidth())
+            if (_radius >= _circleArea.getWidth() / 2)
             {
-                _radius = _circleArea.getWidth();
+                _radius = _circleArea.getWidth() / 2;
                 _isGameOver = true;
             }
         }
@@ -89,10 +105,10 @@ public class Level04Activity extends LevelBase {
         protected void onDraw(Canvas canvas)
         {
             postInvalidate();
-            Update();
             Render(canvas);
         }
     }
+    private Level_04_Circle _enemy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +122,8 @@ public class Level04Activity extends LevelBase {
                 {
                     if (_isGameOver)
                     {
+                        _enemy.StartAnim();
+
                         _levelStatus.setVisibility(View.VISIBLE);
                         _levelStatus.setText("Game Over");
                         _handle.postDelayed(new Runnable() {
@@ -127,13 +145,23 @@ public class Level04Activity extends LevelBase {
                             }
                         }, 2000);
                     }
+                    else
+                        _enemy.Bigger();
                 }
                 finally {
-                    _handle.postDelayed(_generator, 1000);
+                    _handle.postDelayed(_generator, (long)((1.0f / 60.0f) * 1000));
                 }
             }
         };
         GameInit(4);
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        if (hasFocus)
+        {
+            GameReset();
+        }
     }
 
     @Override
@@ -143,5 +171,8 @@ public class Level04Activity extends LevelBase {
 
         _circleArea = findViewById(R.id.level_03_circle_area);
         _circleArea.removeAllViews();
+
+        _enemy = new Level_04_Circle(this);
+        _circleArea.addView(_enemy);
     }
 }

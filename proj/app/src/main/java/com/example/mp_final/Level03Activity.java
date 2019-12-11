@@ -273,7 +273,7 @@ public class Level03Activity extends LevelBase {
                         _handle.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                StartLevel(StartActivity.class);
+                                StartLevel(Level04Activity.class);
                             }
                         }, 2000);
                     }

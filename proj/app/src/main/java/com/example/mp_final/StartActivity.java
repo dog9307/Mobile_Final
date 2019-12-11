@@ -56,6 +56,14 @@ public class StartActivity extends Activity {
                     case 3:
                         StartLevel(Level03Activity.class);
                         break;
+
+                    case 4:
+                        StartLevel(Level04Activity.class);
+                        break;
+
+                    case 5:
+                        StartLevel(Level05Activity.class);
+                        break;
                 }
                 break;
 
