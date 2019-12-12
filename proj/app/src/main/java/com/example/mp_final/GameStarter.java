@@ -37,7 +37,8 @@ public class GameStarter extends Thread {
         else
         {
             _levelStatus.setVisibility(View.GONE);
-            _handle.postDelayed(_generator, 1000);
+            if (_generator != null)
+                _handle.postDelayed(_generator, 1000);
         }
     }
 

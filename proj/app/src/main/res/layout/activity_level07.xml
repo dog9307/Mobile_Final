@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#eeeeee"
-    tools:context=".Level05Activity">
+    tools:context=".Level07Activity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -22,7 +22,7 @@
             android:gravity="center"
             android:background="#6179e8"
             android:textColor="#ffffff"
-            android:text="@string/level_05_title"/>
+            android:text="@string/level_07_title"/>
 
         <TextView
             android:id="@+id/level_status"
@@ -32,12 +32,6 @@
             android:text="3"
             android:textColor="#000000"
             android:textSize="32sp" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/level_05_circle_area"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/level_title"/>
 
     </RelativeLayout>
 
