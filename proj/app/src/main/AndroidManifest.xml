@@ -14,7 +14,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
-        <activity android:name=".Level07Activity"></activity>
+        <activity
+            android:name=".Level07Activity"
+            android:launchMode="singleTask" />
         <activity
             android:name=".Level06Activity"
             android:launchMode="singleTask" />

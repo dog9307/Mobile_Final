@@ -169,7 +169,7 @@ public class Level04Activity extends LevelBase {
     {
         super.GameReset();
 
-        _circleArea = findViewById(R.id.level_03_circle_area);
+        _circleArea = findViewById(R.id.level_04_circle_area);
         _circleArea.removeAllViews();
 
         _enemy = new Level_04_Circle(this);
