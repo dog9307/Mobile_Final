@@ -15,13 +15,16 @@ public class StartActivity extends Activity {
     private Button _start;
     private Button _restart;
 
+    private boolean _isAllClear;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
-        SharedPreferences file = getSharedPreferences("LastLevel", MODE_PRIVATE);
-        _lastLevel = file.getInt("last", -1);
+        SharedPreferences file = getSharedPreferences(getString(R.string.gameData), MODE_PRIVATE);
+        _lastLevel = file.getInt(getString(R.string.last_level), -1);
+        _isAllClear = file.getBoolean(getString(R.string.all_clear), false);
 
         _start = findViewById(R.id.button_start);
         _restart = findViewById(R.id.button_restart);

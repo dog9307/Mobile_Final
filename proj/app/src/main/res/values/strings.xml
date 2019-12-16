@@ -1,11 +1,17 @@
 <resources>
     <string name="app_name">mp_final</string>
 
-    <string name="level_01_title">LEVEL 01</string>
-    <string name="level_02_title">LEVEL 02</string>
-    <string name="level_03_title">LEVEL 03</string>
-    <string name="level_04_title">LEVEL 04</string>
-    <string name="level_05_title">LEVEL 05</string>
-    <string name="level_06_title">LEVEL 06</string>
-    <string name="level_07_title">LEVEL 07</string>
+    <string name="gameData">game_data</string>
+    <string name="last_level">last</string>
+    <string name="all_clear">all_clear</string>
+
+    <string name="level_01_title">STAGE 01</string>
+    <string name="level_02_title">STAGE 02</string>
+    <string name="level_03_title">STAGE 03</string>
+    <string name="level_04_title">STAGE 04</string>
+    <string name="level_05_title">STAGE 05</string>
+    <string name="level_06_title">STAGE 06</string>
+    <string name="level_07_title">STAGE 07</string>
+
+    <string name="final_message">All Stage Clear!\n\nThanks\nfor\nPlaying\n:)</string>
 </resources>

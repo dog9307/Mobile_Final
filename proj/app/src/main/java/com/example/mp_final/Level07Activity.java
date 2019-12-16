@@ -457,7 +457,7 @@ public class Level07Activity extends LevelBase {
             _handle.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    StartLevel(StartActivity.class);
+                    StartLevel(FInalActivity.class);
                 }
             }, 2000);
         }

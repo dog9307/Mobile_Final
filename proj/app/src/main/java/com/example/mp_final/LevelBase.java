@@ -41,10 +41,10 @@ public class LevelBase extends Activity {
 
     protected void LevelFail()
     {
-        SharedPreferences file = getSharedPreferences("LastLevel", MODE_PRIVATE);
+        SharedPreferences file = getSharedPreferences(getString(R.string.gameData), MODE_PRIVATE);
         SharedPreferences.Editor edit = file.edit();
 
-        edit.putInt("last", _level);
+        edit.putInt(getString(R.string.last_level), _level);
 
         edit.commit();
     }
