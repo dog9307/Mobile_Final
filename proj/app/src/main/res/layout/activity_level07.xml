@@ -34,6 +34,42 @@
             android:textColor="#000000"
             android:textSize="32sp" />
 
+        <TextView
+            android:id="@+id/box_0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="gravity"
+            android:gravity="center"
+            android:textColor="#000000"
+            android:textSize="32sp" />
+
+        <TextView
+            android:id="@+id/box_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="gravity"
+            android:gravity="center"
+            android:textColor="#000000"
+            android:textSize="32sp" />
+
+        <TextView
+            android:id="@+id/box_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="gravity"
+            android:gravity="center"
+            android:textColor="#000000"
+            android:textSize="32sp" />
+
+        <TextView
+            android:id="@+id/box_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="gravity"
+            android:gravity="center"
+            android:textColor="#000000"
+            android:textSize="32sp" />
+
         <LinearLayout
             android:id="@+id/buttons_area"
             android:layout_width="match_parent"

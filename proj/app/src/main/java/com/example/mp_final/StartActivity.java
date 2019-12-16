@@ -29,15 +29,23 @@ public class StartActivity extends Activity {
         _start = findViewById(R.id.button_start);
         _restart = findViewById(R.id.button_restart);
 
-        if (_lastLevel == -1)
+        if (_isAllClear)
         {
-            _lastLevel = 1;
-            _restart.setEnabled(false);
+            _start.setText("Select");
+            _restart.setEnabled(true);
         }
         else
         {
-            _start.setText("Level " + _lastLevel);
-            _restart.setEnabled(true);
+            if (_lastLevel == -1)
+            {
+                _lastLevel = 1;
+                _restart.setEnabled(false);
+            }
+            else
+            {
+                _start.setText("Level " + _lastLevel);
+                _restart.setEnabled(true);
+            }
         }
     }
 
@@ -46,6 +54,12 @@ public class StartActivity extends Activity {
         switch (v.getId())
         {
             case R.id.button_start:
+                if (_isAllClear)
+                {
+                    StartLevel(SelectStageActivity.class);
+                    break;
+                }
+
                 switch (_lastLevel)
                 {
                     case 1:

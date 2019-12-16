@@ -17,7 +17,7 @@ public class Level01Activity extends LevelBase {
 
     private static final int    MARGIN = 200;
     private static final int    TOTAL_MAX = 3;
-    private static final int    GAMEOVER_COUNT = 3;
+    private static final int    GAMEOVER_COUNT = 2;
     private static final float  DELAY_MIN = 0.2f;
     private static final float  DELAY_DECREASE = 0.05f;
 

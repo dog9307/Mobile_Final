@@ -12,6 +12,8 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -37,6 +39,7 @@ public class Level07Activity extends LevelBase {
     private Level_07_Enemy _enemy;
 
     private Button[] _buttons = new Button[4];
+    private TextView[] _boxNums = new TextView[4];
 
     class Level_07_Enemy extends View
     {
@@ -264,7 +267,10 @@ public class Level07Activity extends LevelBase {
                             _enemy.setVisibility(View.VISIBLE);
 
                             for (int i = 0; i < _buttons.length; ++i)
+                            {
                                 _buttons[i].setEnabled(true);
+                                _boxNums[i].setVisibility(View.VISIBLE);
+                            }
                         }
                     }
 
@@ -297,6 +303,11 @@ public class Level07Activity extends LevelBase {
         _buttons[1] = findViewById(R.id.button_01);
         _buttons[2] = findViewById(R.id.button_02);
         _buttons[3] = findViewById(R.id.button_03);
+
+        _boxNums[0] = findViewById(R.id.box_0);
+        _boxNums[1] = findViewById(R.id.box_1);
+        _boxNums[2] = findViewById(R.id.box_2);
+        _boxNums[3] = findViewById(R.id.box_3);
 
         for (int i = 0; i < _buttons.length; ++i)
             _buttons[i].setEnabled(false);
@@ -352,32 +363,41 @@ public class Level07Activity extends LevelBase {
         float cy = _boxArea.getHeight() / 2;
         Level_07_Box temp;
         temp = new Level_07_Box(getApplication(), (int)(cx - _boxWidth), (int)(cy - _boxHeight));
-        //temp.SetColor(Color.RED);
         _boxArea.addView(temp);
         _boxes.add(temp);
 
         temp = new Level_07_Box(getApplication(), (int)(cx + _boxWidth), (int)(cy - _boxHeight));
-        //temp.SetColor(Color.GREEN);
         _boxArea.addView(temp);
         _boxes.add(temp);
 
         temp = new Level_07_Box(getApplication(), (int)(cx - _boxWidth), (int)(cy + _boxHeight));
-        //temp.SetColor(Color.BLUE);
         _boxArea.addView(temp);
         _boxes.add(temp);
 
         temp = new Level_07_Box(getApplication(), (int)(cx + _boxWidth), (int)(cy + _boxHeight));
-        //temp.SetColor(Color.BLACK);
         _boxArea.addView(temp);
         _boxes.add(temp);
 
         _points = new Point[_boxes.size()];
         for (int i = 0; i < _boxes.size(); ++i)
+        {
             _points[i] = new Point(_boxes.get(i).GetX(), _boxes.get(i).GetY());
+            SetBoxNumPosition(i);
+        }
 
         _duration = ANIM_START_SEC;
 
         _currentShuffleCount = 0;
+    }
+
+    private void SetBoxNumPosition(int index)
+    {
+        RelativeLayout.LayoutParams param = new RelativeLayout.LayoutParams(_boxWidth, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        param.leftMargin = _points[index].x - _boxWidth / 2;
+        param.topMargin = _points[index].y;
+        _boxNums[index].setLayoutParams(param);
+        _boxNums[index].setText((index + 1) + "");
+        _boxNums[index].setVisibility(View.GONE);
     }
 
     private void StartEnemyAnim()

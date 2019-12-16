@@ -215,6 +215,7 @@ public class Level03Activity extends LevelBase {
         @Override
         public void run()
         {
+            if (_isGameClear || _isGameOver) return;
             _time.setVisibility(View.VISIBLE);
             _currentTime -= 0.01f;
             if (_currentTime <= 0.0f)

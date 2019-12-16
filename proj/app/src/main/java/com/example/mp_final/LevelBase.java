@@ -3,6 +3,7 @@ package com.example.mp_final;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.os.Handler;
 import android.view.KeyEvent;
 import android.widget.TextView;
@@ -14,6 +15,8 @@ public class LevelBase extends Activity {
 
     protected boolean _isGameClear = false;
     protected boolean _isGameOver = false;
+
+    protected boolean _isAllClear = false;
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -39,6 +42,16 @@ public class LevelBase extends Activity {
             _handle.removeCallbacks(_generator);
     }
 
+    @Override
+    protected void onCreate(Bundle bundle)
+    {
+        super.onCreate(bundle);
+
+        SharedPreferences file = getSharedPreferences(getString(R.string.gameData), MODE_PRIVATE);
+
+        _isAllClear = file.getBoolean(getString(R.string.all_clear), false);
+    }
+
     protected void LevelFail()
     {
         SharedPreferences file = getSharedPreferences(getString(R.string.gameData), MODE_PRIVATE);
@@ -51,6 +64,9 @@ public class LevelBase extends Activity {
 
     protected void StartLevel(Class<?> cls)
     {
+        if (_isAllClear)
+            cls = SelectStageActivity.class;
+
         startActivity(new Intent(getApplication(), cls));
         finish();
     }
