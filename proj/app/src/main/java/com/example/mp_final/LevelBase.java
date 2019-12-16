@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.view.KeyEvent;
-import android.view.View;
 import android.widget.TextView;
 
 public class LevelBase extends Activity {
